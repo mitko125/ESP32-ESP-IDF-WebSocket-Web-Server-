@@ -4,7 +4,7 @@
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
 #include "esp_system.h"
-#include "esp_spi_flash.h"
+#include "spi_flash_mmap.h"
 #include <esp_http_server.h>
 #include "nvs_flash.h"
 #include "esp_spiffs.h"
@@ -71,7 +71,7 @@ static void ws_async_send(void *arg)
     httpd_ws_frame_t ws_pkt;
     struct async_resp_arg *resp_arg = arg;
     httpd_handle_t hd = resp_arg->hd;
-    int fd = resp_arg->fd;
+    // int fd = resp_arg->fd;
 
     led_state = !led_state;
     gpio_set_level(LED_PIN, led_state);
@@ -202,7 +202,7 @@ void app_main()
 
     if (wifi_connect_status)
     {
-        gpio_pad_select_gpio(LED_PIN);
+        // gpio_pad_select_gpio(LED_PIN);
         gpio_set_direction(LED_PIN, GPIO_MODE_OUTPUT);
 
         led_state = 0;
